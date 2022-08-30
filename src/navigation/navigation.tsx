@@ -22,22 +22,24 @@ import DetailBook from '../screens/DetailBook';
 import SearchBook from '../screens/SearchBook';
 import Cart from '../screens/Cart';
 import {useNavigation} from '@react-navigation/native';
+import Payment from '../screens/Payment';
 
 const Tab = createBottomTabNavigator();
 
 export type RootStackParamList = {
-  Home: undefined;
-  Login: undefined;
-  ForgotPassword: undefined;
-  Register: undefined;
-  Profile: undefined;
-  News: undefined;
-  Notifications: undefined;
-  ChangePassword: undefined;
-  PersonalInformation: undefined;
+  Home: any;
+  Login: any;
+  ForgotPassword: any;
+  Register: any;
+  Profile: any;
+  News: any;
+  Notifications: any;
+  ChangePassword: any;
+  PersonalInformation: any;
   DetailBook: {id: number};
   SearchBook: {id?: number; name?: string};
-  Cart: undefined;
+  Cart: any;
+  Payment: any;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -195,6 +197,11 @@ const Navigator = () => {
           headerStyle: {
             backgroundColor: theme.colors.green,
           },
+          headerTitleStyle: {
+            fontFamily: 'Roboto',
+            fontSize: 16,
+            fontWeight: '700',
+          },
         }}>
         <Stack.Screen name="Home" component={HomeTab} />
         <Stack.Screen
@@ -229,6 +236,15 @@ const Navigator = () => {
           component={Cart}
           options={{
             headerShown: true,
+            title: 'Giỏ hàng',
+          }}
+        />
+        <Stack.Screen
+          name="Payment"
+          component={Payment}
+          options={{
+            headerShown: true,
+            title: 'Thanh toán',
           }}
         />
       </Stack.Navigator>

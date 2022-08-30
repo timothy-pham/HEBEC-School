@@ -6,19 +6,33 @@ import { RootStackParamList } from '../navigation/navigation';
 
 
 //components
-import { AuthContext } from '../contexts/AuthContext';
 import ItemMenu from '../components/ItemMenu';
 import { getProfile } from '../api/Profile';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import theme from '../core/theme';
-import IUser from '../models/User';
+import { AuthContext } from '../contexts/AuthContext';
 
 const Profile = () => {
     type profileScreenProp = NativeStackNavigationProp<RootStackParamList, 'Profile'>;
     const navigation = useNavigation<profileScreenProp>();
-    const [user, setUser] = useState<IUser | null>(null);
     const Auth = useContext(AuthContext);
-    const isLoggedIn = Auth?.auth.getToken;
+    const [user, setUser] = useState<any>({name: '', className:'', classCode: ''});
+
+    getProfile().then(res => {
+                let data = res.data.data;
+                let temp :any = {}
+                if (data != null) {
+                    temp.name = data.name;
+                    if (data.classroom != null) {
+                        temp.className = data.classroom.name;
+                        temp.classCode = data.classroom.code;
+                    }
+                    setUser(temp);
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        
     const logoutHandle = () => {
         Alert.alert('Thông báo', "Bạn có muốn đăng xuất không?",
             [
@@ -44,31 +58,15 @@ const Profile = () => {
             // Error saving data
         }
     };
-    const [Information, setInformation] = useState(<View>
-        <Text style={styles.title}>TÀI KHOẢN</Text>
-        <ItemMenu onPress={() => { navigation.navigate('Login') }} title="Đăng nhập vào HEBEC" icon=<Image source={require('../assets/icons/Login.png')} /> label='' />
-    </View>);
 
-    useEffect(() => {
-         if (isLoggedIn) {
-            getProfile().then(res => {
-                let data = res.data.data;
-                let name = ''
-                let className = ''
-                let classCode = ''
-                if (data != null) {
-                    name = data.name;
-                    if (data.classroom != null) {
-                        className = data.classroom.name;
-                        classCode = data.classroom.code;
-                    }
-                }
-
-                setInformation(<View>
+    return (
+        <SafeAreaView>
+            <ScrollView>
+                <View>
                     <View style={styles.info}>
                         <Image style={styles.avatar} source={require('../assets/imgs/Avatar.png')} />
-                        <Text style={styles.name}>{name}</Text>
-                        <Text style={styles.class}>{className} - MS: {classCode}</Text>
+                        <Text style={styles.name}>{user.name}</Text>
+                        <Text style={styles.class}>{user.className} - MS: {user.classCode}</Text>
                     </View>
 
                     <Text style={styles.title}>TÀI KHOẢN</Text>
@@ -77,20 +75,7 @@ const Profile = () => {
                     <ItemMenu onPress={() => { navigation.navigate('ChangePassword') }} title="Đổi mật khẩu" icon=<Image source={require('../assets/icons/Password.png')} /> label='' />
                     <ItemMenu onPress={() => { }} title="Sổ liên lạc" icon=<Image source={require('../assets/icons/SoLienLac.png')} /> label='' />
                     <ItemMenu onPress={logoutHandle} title="Đăng xuất" icon=<Image source={require('../assets/icons/Logout.png')} /> label='' />
-                </View>)
-            }).catch(err => {
-                console.log(err)
-            }
-            )
-        }
-
-    }, [isLoggedIn]);
-
-
-    return (
-        <SafeAreaView>
-            <ScrollView>
-                {Information}
+                </View>
                  <Text style={styles.title}>HỖ TRỢ</Text>
                 <ItemMenu onPress={() => { }} title="Giới thiệu HEBEC" label='' icon=<Image source={require('../assets/icons/Information.png')} /> />
                 <ItemMenu onPress={() => { }} title="Hướng dẫn sử dụng" label='' icon=<Image source={require('../assets/icons/Description.png')} /> />

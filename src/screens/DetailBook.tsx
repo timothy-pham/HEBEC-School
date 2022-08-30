@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   FlatList,
+  Alert,
 } from 'react-native';
 import {getBookById} from '../api/Book';
 import {Button} from '@react-native-material/core';
@@ -102,19 +103,64 @@ const DetailBook = ({route}: any) => {
   };
 
   //add book to cart
-  const _storeData = async (book: number) => {
+  const _storeData = async (data: any) => {
     try {
-      await AsyncStorage.setItem('Cart', JSON.stringify([{id: book}]));
+      await AsyncStorage.setItem('Cart', JSON.stringify(data));
     } catch (error) {
       console.log(error);
     }
   };
-  const addToCart = () => {
-    _storeData(id);
-    setIsShowNotification(true);
-    setTimeout(() => {
-      setIsShowNotification(false);
-    }, 3000);
+  const _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('Cart');
+      if (value !== null) {
+        return value;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    return null;
+  };
+  const addToCart = async () => {
+    if (quantity >= 1) {
+      const value = await _retrieveData();
+
+      if (value != null) {
+        let data = JSON.parse(value);
+        let index = -1;
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].id.toString() == id.toString()) {
+            index = i;
+          }
+        }
+        if (index != -1) {
+          let newQuantity = data[index].quantity + quantity;
+          data[index].quantity = newQuantity;
+          await _storeData(data);
+        } else {
+          let temp = {
+            id: id,
+            quantity: quantity,
+            price: book.finalPrice,
+            name: book.name,
+          };
+          data.push(temp);
+          await _storeData(data);
+        }
+      } else {
+        await _storeData([
+          {id: id, quantity: quantity, price: book.finalPrice, name: book.name},
+        ]);
+      }
+
+      //show notification
+      setIsShowNotification(true);
+      setTimeout(() => {
+        setIsShowNotification(false);
+      }, 3000);
+    } else {
+      Alert.alert('Thông báo', 'Số lượng phải lớn hơn 0');
+    }
   };
   const showNotification = () => {
     if (isShowNotification) {
