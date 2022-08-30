@@ -13,6 +13,7 @@ import {Button} from '@react-native-material/core';
 import config from '../config.json';
 import theme from '../core/theme';
 import {getImage} from '../api/Home';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type Information = {
   date: string;
@@ -44,6 +45,8 @@ const DetailBook = ({route}: any) => {
   const [image, setImage] = useState(
     config.BASE_URL + '/media/image_product.png',
   );
+
+  const [isShowNotification, setIsShowNotification] = useState(false);
   const [information, setInformation] = useState<Information>({
     date: '5-2019',
     size: '14.5 x 20.5 cm',
@@ -98,105 +101,155 @@ const DetailBook = ({route}: any) => {
     setQuantity(quantity + 1);
   };
 
-  const addToCart = () => {};
+  //add book to cart
+  const _storeData = async (book: number) => {
+    try {
+      await AsyncStorage.setItem('Cart', JSON.stringify([{id: book}]));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const addToCart = () => {
+    _storeData(id);
+    setIsShowNotification(true);
+    setTimeout(() => {
+      setIsShowNotification(false);
+    }, 3000);
+  };
+  const showNotification = () => {
+    if (isShowNotification) {
+      return (
+        <View style={styles.addToCart}>
+          <Image source={require('../assets/icons/AddToCart.png')} />
+          <Text style={styles.textAddToCart}>Đã thêm vào giỏ hàng</Text>
+        </View>
+      );
+    } else {
+      return <></>;
+    }
+  };
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <Image
-        source={{uri: image}}
-        style={styles.image}
-        defaultSource={require('../assets/imgs/BookDefault.png')}
-      />
-
-      <View style={styles.listImage}>
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator
-          data={book?.bookGalleries}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              onPress={() => {
-                setBook({
-                  ...book,
-                  image: item,
-                });
-              }}
-              style={styles.imageSubContainer}>
-              <Image
-                style={styles.imageSub}
-                source={{uri: item}}
-                defaultSource={require('../assets/imgs/BookDefault.png')}
-              />
-            </TouchableOpacity>
-          )}
+    <View>
+      {showNotification()}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Image
+          source={{uri: image}}
+          style={styles.image}
+          defaultSource={require('../assets/imgs/BookDefault.png')}
         />
-      </View>
-      <Text style={styles.name}>{book.name}</Text>
-      <Text style={styles.finalPrice}>
-        {book.finalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')} đ
-      </Text>
-      <View style={styles.orderQuantity}>
-        <Text style={styles.soLuongDat}>Số lượng đặt</Text>
-        <View style={styles.upDownNumber}>
-          <TouchableOpacity onPress={minusQuantity}>
-            <Image source={require('../assets/icons/MinusCircle.png')} />
-          </TouchableOpacity>
-          <Text style={styles.quantity}>{quantity}</Text>
-          <TouchableOpacity onPress={plusQuantity}>
-            <Image source={require('../assets/icons/PlusCircle.png')} />
-          </TouchableOpacity>
-        </View>
-      </View>
-      <Button
-        title="Thêm vào giỏ hàng"
-        onPress={addToCart}
-        style={styles.button}
-      />
-      <View style={styles.information}>
-        <View style={styles.titleInformation}>
-          <Image
-            source={require('../assets/icons/Information.png')}
-            style={styles.titleInformationImage}
+
+        <View style={styles.listImage}>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator
+            data={book?.bookGalleries}
+            renderItem={({item}) => (
+              <TouchableOpacity
+                onPress={() => {
+                  setBook({
+                    ...book,
+                    image: item,
+                  });
+                }}
+                style={styles.imageSubContainer}>
+                <Image
+                  style={styles.imageSub}
+                  source={{uri: item}}
+                  defaultSource={require('../assets/imgs/BookDefault.png')}
+                />
+              </TouchableOpacity>
+            )}
           />
-          <Text style={styles.titleInformationText}>Thông tin chi tiết</Text>
         </View>
-        <View style={styles.boxInformation}>
-          <Text style={styles.nameInformation}>Ngày xuất bản</Text>
-          <Text style={styles.contentInformation}>{information.date}</Text>
+        <Text style={styles.name}>{book.name}</Text>
+        <Text style={styles.finalPrice}>
+          {book.finalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')} đ
+        </Text>
+        <View style={styles.orderQuantity}>
+          <Text style={styles.soLuongDat}>Số lượng đặt</Text>
+          <View style={styles.upDownNumber}>
+            <TouchableOpacity onPress={minusQuantity}>
+              <Image source={require('../assets/icons/MinusCircle.png')} />
+            </TouchableOpacity>
+            <Text style={styles.quantity}>{quantity}</Text>
+            <TouchableOpacity onPress={plusQuantity}>
+              <Image source={require('../assets/icons/PlusCircle.png')} />
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.boxInformation}>
-          <Text style={styles.nameInformation}>Kích thước</Text>
-          <Text style={styles.contentInformation}>{information.size}</Text>
+        <TouchableOpacity onPress={addToCart}>
+          <Text style={styles.button}>Thêm vào giỏ hàng</Text>
+        </TouchableOpacity>
+        <View style={styles.information}>
+          <View style={styles.titleInformation}>
+            <Image
+              source={require('../assets/icons/Information.png')}
+              style={styles.titleInformationImage}
+            />
+            <Text style={styles.titleInformationText}>Thông tin chi tiết</Text>
+          </View>
+          <View style={styles.boxInformation}>
+            <Text style={styles.nameInformation}>Ngày xuất bản</Text>
+            <Text style={styles.contentInformation}>{information.date}</Text>
+          </View>
+          <View style={styles.boxInformation}>
+            <Text style={styles.nameInformation}>Kích thước</Text>
+            <Text style={styles.contentInformation}>{information.size}</Text>
+          </View>
+          <View style={styles.boxInformation}>
+            <Text style={styles.nameInformation}>Loại bìa</Text>
+            <Text style={styles.contentInformation}>{information.cover}</Text>
+          </View>
+          <View style={styles.boxInformation}>
+            <Text style={styles.nameInformation}>Số trang</Text>
+            <Text style={styles.contentInformation}>{information.page}</Text>
+          </View>
+          <View style={styles.boxInformation}>
+            <Text style={styles.nameInformation}>Nhà xuất bản</Text>
+            <Text style={styles.contentInformation}>
+              {information.authorName}
+            </Text>
+          </View>
         </View>
-        <View style={styles.boxInformation}>
-          <Text style={styles.nameInformation}>Loại bìa</Text>
-          <Text style={styles.contentInformation}>{information.cover}</Text>
+        <View style={styles.information}>
+          <View style={styles.titleInformation}>
+            <Image
+              source={require('../assets/icons/Description.png')}
+              style={styles.titleInformationImage}
+            />
+            <Text style={styles.titleInformationText}>Mô tả sản phẩm</Text>
+          </View>
+          <Text style={styles.description}>{book.description}</Text>
         </View>
-        <View style={styles.boxInformation}>
-          <Text style={styles.nameInformation}>Số trang</Text>
-          <Text style={styles.contentInformation}>{information.page}</Text>
-        </View>
-        <View style={styles.boxInformation}>
-          <Text style={styles.nameInformation}>Nhà xuất bản</Text>
-          <Text style={styles.contentInformation}>
-            {information.authorName}
-          </Text>
-        </View>
-      </View>
-      <View style={styles.information}>
-        <View style={styles.titleInformation}>
-          <Image
-            source={require('../assets/icons/Description.png')}
-            style={styles.titleInformationImage}
-          />
-          <Text style={styles.titleInformationText}>Mô tả sản phẩm</Text>
-        </View>
-        <Text style={styles.description}>{book.description}</Text>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  addToCart: {
+    height: 50,
+    width: 260,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    alignSelf: 'center',
+    position: 'absolute',
+    zIndex: 100,
+    bottom: 90,
+    borderWidth: 2,
+    borderColor: theme.colors.green,
+    borderRadius: 25,
+  },
+  textAddToCart: {
+    marginStart: 20,
+    fontFamily: 'Roboto',
+    fontSize: 16,
+    color: theme.colors.green,
+    fontWeight: '500',
+    lineHeight: 19,
+  },
   description: {
     fontSize: 16,
     lineHeight: 24,
@@ -272,13 +325,14 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: theme.colors.green,
     borderRadius: 7,
-    alignItems: 'center',
-    justifyContent: 'center',
+
     fontFamily: 'Roboto',
     fontSize: 16,
     fontWeight: '700',
     lineHeight: 24,
     color: 'white',
+    textAlign: 'center',
+    textAlignVertical: 'center',
   },
   image: {
     height: 350,
