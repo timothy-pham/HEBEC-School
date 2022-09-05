@@ -382,6 +382,15 @@ const Payment = ({route}: any) => {
                 />
                 <Text style={styles.simpleText}>Momo</Text>
               </View>
+              <View style={styles.hStack}>
+                <RadioButton
+                  color={theme.colors.green}
+                  value="vnpay"
+                  status={payment === 'vnpay' ? 'checked' : 'unchecked'}
+                  onPress={() => setPayment('vnpay')}
+                />
+                <Text style={styles.simpleText}>Ví VNPay</Text>
+              </View>
             </View>
           </View>
           <View style={styles.button}>

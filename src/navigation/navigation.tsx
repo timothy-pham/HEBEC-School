@@ -25,6 +25,7 @@ import {useNavigation} from '@react-navigation/native';
 import Payment from '../screens/Payment';
 import OrderSuccess from '../screens/OrderSuccess';
 import OrderHistory from '../screens/OrderHistory';
+import OrderDetail from '../screens/OrderDetail';
 
 const Tab = createBottomTabNavigator();
 
@@ -44,6 +45,7 @@ export type RootStackParamList = {
   Payment: any;
   OrderSuccess: any;
   OrderHistory: any;
+  OrderDetail: any;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -258,6 +260,14 @@ const Navigator = () => {
           options={{
             headerShown: true,
             title: 'Lịch sử mua hàng',
+          }}
+        />
+        <Stack.Screen
+          name="OrderDetail"
+          component={OrderDetail}
+          options={{
+            headerShown: true,
+            title: 'Chi tiết đơn hàng',
           }}
         />
       </Stack.Navigator>

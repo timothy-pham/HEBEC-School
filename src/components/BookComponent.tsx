@@ -55,7 +55,7 @@ const BookComponent = ({
   return (
     <TouchableOpacity style={styles.container} onPress={seeDetail}>
       {checkImage()}
-      <Text style={styles.name} numberOfLines={2} ellipsizeMode="tail">
+      <Text style={styles.name} numberOfLines={2}>
         {name}
       </Text>
       <Text style={styles.finalPrice}>{price}đ</Text>
