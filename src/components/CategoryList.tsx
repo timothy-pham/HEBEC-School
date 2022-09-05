@@ -42,7 +42,7 @@ const CategoryList: React.FC<Props> = ({id, name, thumbnail, books}) => {
     if (isValid) {
       return (
         <Image
-          source={require('../assets/imgs/IconDefault.png')}
+          source={require('../assets/images/IconDefault.png')}
           style={styles.image}
         />
       );

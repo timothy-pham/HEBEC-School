@@ -6,9 +6,9 @@ const Logo = () => {
     <View style={styles.logo}>
       <Image
         style={styles.union}
-        source={require('../assets/imgs/Union.png')}
+        source={require('../assets/images/Union.png')}
       />
-      <Image source={require('../assets/imgs/School.png')} />
+      <Image source={require('../assets/images/School.png')} />
     </View>
   );
 };

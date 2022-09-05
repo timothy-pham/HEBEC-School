@@ -58,6 +58,7 @@ const ChangePassword = () => {
     <SafeAreaView>
       <View style={styles.textField}>
         <TextField
+          value={oldPassword}
           label="Mật khẩu hiện tại"
           placeholder="Nhập mật khẩu hiện tại"
           onChangeText={setOldPassword}
@@ -66,6 +67,7 @@ const ChangePassword = () => {
       </View>
       <View style={styles.textField}>
         <TextField
+          value={password}
           label="Mật khẩu mới"
           placeholder="Nhập mật khẩu mới"
           onChangeText={setPassword}
@@ -74,6 +76,7 @@ const ChangePassword = () => {
       </View>
       <View style={styles.textField}>
         <TextField
+          value={confirmPassword}
           label="Nhập lại mật khẩu mới"
           placeholder="Nhập lại mật khẩu mới"
           onChangeText={setConfirmPassword}

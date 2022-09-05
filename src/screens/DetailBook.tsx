@@ -181,7 +181,7 @@ const DetailBook = ({route}: any) => {
         <Image
           source={{uri: image}}
           style={styles.image}
-          defaultSource={require('../assets/imgs/BookDefault.png')}
+          defaultSource={require('../assets/images/BookDefault.png')}
         />
 
         <View style={styles.listImage}>
@@ -201,7 +201,7 @@ const DetailBook = ({route}: any) => {
                 <Image
                   style={styles.imageSub}
                   source={{uri: item}}
-                  defaultSource={require('../assets/imgs/BookDefault.png')}
+                  defaultSource={require('../assets/images/BookDefault.png')}
                 />
               </TouchableOpacity>
             )}

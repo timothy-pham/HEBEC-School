@@ -46,7 +46,7 @@ const PersonalInformation = () => {
         <View style={styles.top}>
           <Image
             style={styles.avatar}
-            source={require('../assets/imgs/Avatar.png')}
+            source={require('../assets/images/Avatar.png')}
           />
         </View>
         <View style={styles.bottom}>

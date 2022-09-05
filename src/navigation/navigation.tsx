@@ -23,6 +23,8 @@ import SearchBook from '../screens/SearchBook';
 import Cart from '../screens/Cart';
 import {useNavigation} from '@react-navigation/native';
 import Payment from '../screens/Payment';
+import OrderSuccess from '../screens/OrderSuccess';
+import OrderHistory from '../screens/OrderHistory';
 
 const Tab = createBottomTabNavigator();
 
@@ -40,6 +42,8 @@ export type RootStackParamList = {
   SearchBook: {id?: number; name?: string};
   Cart: any;
   Payment: any;
+  OrderSuccess: any;
+  OrderHistory: any;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -245,6 +249,15 @@ const Navigator = () => {
           options={{
             headerShown: true,
             title: 'Thanh toán',
+          }}
+        />
+        <Stack.Screen name="OrderSuccess" component={OrderSuccess} />
+        <Stack.Screen
+          name="OrderHistory"
+          component={OrderHistory}
+          options={{
+            headerShown: true,
+            title: 'Lịch sử mua hàng',
           }}
         />
       </Stack.Navigator>

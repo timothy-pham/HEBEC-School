@@ -64,13 +64,13 @@ const Profile = () => {
             <ScrollView>
                 <View>
                     <View style={styles.info}>
-                        <Image style={styles.avatar} source={require('../assets/imgs/Avatar.png')} />
+                        <Image style={styles.avatar} source={require('../assets/images/Avatar.png')} />
                         <Text style={styles.name}>{user.name}</Text>
                         <Text style={styles.class}>{user.className} - MS: {user.classCode}</Text>
                     </View>
 
                     <Text style={styles.title}>TÀI KHOẢN</Text>
-                    <ItemMenu onPress={() => { }} title="Theo dõi đơn hàng" icon=<Image source={require('../assets/icons/FollowBill.png')} /> label='' />
+                    <ItemMenu onPress={() => { navigation.navigate('OrderHistory')}} title="Theo dõi đơn hàng" icon=<Image source={require('../assets/icons/FollowBill.png')} /> label='' />
                     <ItemMenu onPress={() => { navigation.navigate('PersonalInformation') }} title="Thông tin cá nhân" icon=<Image source={require('../assets/icons/UserProfile.png')} /> label='' />
                     <ItemMenu onPress={() => { navigation.navigate('ChangePassword') }} title="Đổi mật khẩu" icon=<Image source={require('../assets/icons/Password.png')} /> label='' />
                     <ItemMenu onPress={() => { }} title="Sổ liên lạc" icon=<Image source={require('../assets/icons/SoLienLac.png')} /> label='' />
@@ -80,7 +80,7 @@ const Profile = () => {
                 <ItemMenu onPress={() => { }} title="Giới thiệu HEBEC" label='' icon=<Image source={require('../assets/icons/Information.png')} /> />
                 <ItemMenu onPress={() => { }} title="Hướng dẫn sử dụng" label='' icon=<Image source={require('../assets/icons/Description.png')} /> />
                 <ItemMenu onPress={() => { }} title="Điều khoản sử dụng" label='' icon=<Image source={require('../assets/icons/Policy.png')} /> />
-                <ItemMenu onPress={() => { }} title="Các vấn đề thường gặp" label='' icon=<Image source={require('../assets/icons/FAQ.png')} /> />
+                <ItemMenu onPress={() => { navigation.navigate('OrderSuccess')}} title="Các vấn đề thường gặp" label='' icon=<Image source={require('../assets/icons/FAQ.png')} /> />
 
                 <Text style={styles.title}>LIÊN HỆ</Text>
                 <ItemMenu onPress={() => { }} title="Chat với admin" label='' isNotification={true} icon=<Image source={require('../assets/icons/Chat.png')} /> />

@@ -40,7 +40,7 @@ const BookComponent = ({
     if (!isValid) {
       return (
         <Image
-          source={require('../assets/imgs/BookDefault.png')}
+          source={require('../assets/images/BookDefault.png')}
           style={styles.image}
         />
       );

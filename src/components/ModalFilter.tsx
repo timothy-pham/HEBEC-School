@@ -1,4 +1,3 @@
-import Icon from 'react-native-vector-icons/AntDesign';
 import React, {useState} from 'react';
 import {Modal, View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';

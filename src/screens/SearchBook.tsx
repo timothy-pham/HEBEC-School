@@ -128,7 +128,7 @@ const SearchBook = ({route}: any) => {
       if (length == 0) {
         return (
           <View style={styles.noResult}>
-            <Image source={require('../assets/imgs/NoResult.png')} />
+            <Image source={require('../assets/images/NoResult.png')} />
             <Text>Không có kết quả phù hợp</Text>
           </View>
         );

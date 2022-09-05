@@ -115,7 +115,7 @@ const Cart = () => {
 
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('Payment', {total: total});
+            navigation.navigate('Payment', {total: total, listBook: data});
           }}>
           <Text style={styles.button}>Đặt sách</Text>
         </TouchableOpacity>
@@ -127,6 +127,7 @@ const Cart = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   body: {
     flex: 1,
