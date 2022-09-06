@@ -114,6 +114,15 @@ const Navigator = () => {
           component={News}
           options={{
             title: 'Tin tức',
+            headerRight: () => (
+              <TouchableOpacity
+                style={{marginEnd: 20}}
+                onPress={() => {
+                  navigation.navigate('Cart');
+                }}>
+                <Image source={require('../assets/icons/Cart.png')} />
+              </TouchableOpacity>
+            ),
             tabBarIcon: ({size, focused, color}) => {
               if (focused) {
                 return (
@@ -138,6 +147,15 @@ const Navigator = () => {
           component={Notifications}
           options={{
             title: 'Thông báo',
+            headerRight: () => (
+              <TouchableOpacity
+                style={{marginEnd: 20}}
+                onPress={() => {
+                  navigation.navigate('Cart');
+                }}>
+                <Image source={require('../assets/icons/Cart.png')} />
+              </TouchableOpacity>
+            ),
             tabBarIcon: ({size, focused, color}) => {
               if (focused) {
                 return (

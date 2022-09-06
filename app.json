@@ -1,4 +1,13 @@
 {
   "name": "HebecSchool",
-  "displayName": "HebecSchool"
+  "slug": "hebec-school",
+  "owner": "tiendat2309",
+  "extra": {
+    "eas": {
+      "projectId": "a0ffa3b5-ed59-4a14-8b5a-5b9abe8f9289"
+    }
+  },
+  "updates": {
+    "checkAutomatically": "ON_ERROR_RECOVERY"
+  }
 }

@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
     borderWidth: 1,
     borderRadius: 7,
-    borderColor: theme.colors.darkGrey,
+    borderColor: theme.colors.mediumGrey,
     padding: 10,
 
     color: theme.colors.darkGrey,

@@ -14,7 +14,6 @@ export const getBook = (data: any) => {
   if (data.sortPrice != undefined) {
     param = param + '&sortPrice=' + data.sortPrice;
   }
-
   if (data != null) {
     return instance
       .get('/v1/customer/book' + param, data)

@@ -80,7 +80,7 @@ const Profile = () => {
                 <ItemMenu onPress={() => { }} title="Giới thiệu HEBEC" label='' icon=<Image source={require('../assets/icons/Information.png')} /> />
                 <ItemMenu onPress={() => { }} title="Hướng dẫn sử dụng" label='' icon=<Image source={require('../assets/icons/Description.png')} /> />
                 <ItemMenu onPress={() => { }} title="Điều khoản sử dụng" label='' icon=<Image source={require('../assets/icons/Policy.png')} /> />
-                <ItemMenu onPress={() => { navigation.navigate('OrderSuccess')}} title="Các vấn đề thường gặp" label='' icon=<Image source={require('../assets/icons/FAQ.png')} /> />
+                <ItemMenu onPress={() => { }} title="Các vấn đề thường gặp" label='' icon=<Image source={require('../assets/icons/FAQ.png')} /> />
 
                 <Text style={styles.title}>LIÊN HỆ</Text>
                 <ItemMenu onPress={() => { }} title="Chat với admin" label='' isNotification={true} icon=<Image source={require('../assets/icons/Chat.png')} /> />

@@ -55,7 +55,7 @@ const ChangePassword = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.root}>
       <View style={styles.textField}>
         <TextField
           value={oldPassword}
@@ -91,6 +91,10 @@ const ChangePassword = () => {
 };
 
 const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
   textField: {
     marginTop: 20,
   },

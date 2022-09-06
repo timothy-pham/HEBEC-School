@@ -206,6 +206,7 @@ const Payment = ({route}: any) => {
                   <Text style={{color: theme.colors.error}}> *</Text>
                 </Text>
                 <DropDownPicker
+                  style={{borderColor: theme.colors.mediumGrey}}
                   open={isOpenCity}
                   setOpen={setIsOpenCity}
                   value={city}
@@ -223,6 +224,7 @@ const Payment = ({route}: any) => {
                   <Text style={{color: theme.colors.error}}> *</Text>
                 </Text>
                 <DropDownPicker
+                  style={{borderColor: theme.colors.mediumGrey}}
                   open={isOpenDistrict}
                   setOpen={setIsOpenDistrict}
                   value={district}
@@ -240,6 +242,7 @@ const Payment = ({route}: any) => {
                   <Text style={{color: theme.colors.error}}> *</Text>
                 </Text>
                 <DropDownPicker
+                  style={{borderColor: theme.colors.mediumGrey}}
                   open={isOpenWard}
                   setOpen={setIsOpenWard}
                   value={ward}
@@ -401,7 +404,7 @@ const Payment = ({route}: any) => {
               let temp: any = [];
               for (let i = 0; i < listBook.length; i++) {
                 temp.push({
-                  id: listBook[i].id,
+                  bookId: listBook[i].id,
                   quantity: listBook[i].quantity,
                   attributeId1: 0,
                   attributeId2: 0,

@@ -71,6 +71,7 @@ const SearchBook = ({route}: any) => {
     getResult();
     setRefreshing(false);
   }, []);
+
   //filter
   const searchBook = () => {
     setFilter(undefined);
@@ -88,13 +89,15 @@ const SearchBook = ({route}: any) => {
     data.page = page;
     if (categoryId != 0) {
       data.categoryId = id;
-    }
-    if (searchText != '') {
+      setSearchText('');
+    } else if (searchText != '') {
       data.search = searchText;
     }
     if (filter) {
       data.sortPrice = filter.sortPrice;
-      data.categoryId = filter.category;
+      if (categoryId == 0) {
+        data.categoryId = filter.category;
+      }
     }
     getBook(data)
       .then(res => {
@@ -113,10 +116,12 @@ const SearchBook = ({route}: any) => {
         console.log(err);
       });
   };
+
   //get search result
   useEffect(() => {
     getResult();
   }, [searchText, page, filter]);
+
   const renderResult = () => {
     if (isLoading) {
       return (
@@ -179,6 +184,7 @@ const SearchBook = ({route}: any) => {
   const confirmFilter = (categoryIdNew: number, sortPrice: string) => {
     setListBook([]);
     setCategoryId(0);
+    setPage(1);
     if (categoryIdNew == 0) {
       setFilter({
         category: categoryId,

@@ -66,7 +66,7 @@ const ModalFilter = ({setFilter}: Props) => {
   };
   return (
     <View style={styles.modalFilter}>
-      <View style={[styles.modalBox, {zIndex: 10}]}>
+      <View style={[styles.modalBox]}>
         <Text style={styles.name}>Loại sách</Text>
         <View style={{width: '60%'}}>
           <DropDownPicker
@@ -77,10 +77,11 @@ const ModalFilter = ({setFilter}: Props) => {
             setValue={setValue}
             setItems={setItems}
             theme="LIGHT"
+            zIndex={100}
           />
         </View>
       </View>
-      <View style={[styles.modalBox, {zIndex: 9}]}>
+      <View style={[styles.modalBox]}>
         <Text style={styles.name}>Lớp</Text>
         <View style={{width: '60%'}}>
           <DropDownPicker
@@ -91,10 +92,11 @@ const ModalFilter = ({setFilter}: Props) => {
             setValue={setValue2}
             setItems={setItems2}
             theme="LIGHT"
+            zIndex={80}
           />
         </View>
       </View>
-      <View style={[styles.modalBox, {zIndex: 8}]}>
+      <View style={[styles.modalBox]}>
         <Text style={styles.name}>Giá</Text>
         <View style={{width: '60%'}}>
           <DropDownPicker
@@ -105,6 +107,7 @@ const ModalFilter = ({setFilter}: Props) => {
             setValue={setValue3}
             setItems={setItems3}
             theme="LIGHT"
+            zIndex={70}
           />
         </View>
       </View>
